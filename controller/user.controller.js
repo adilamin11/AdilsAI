@@ -38,14 +38,14 @@ export const login = async (req, res) => {
       return res.status(403).json({ errors: "Invalid Credentials" });
     }
     // jwt code
-    const token = jwt.sign({ id: user._id }, config.jwtSecret, {
-      expiresIn: "7d",
+    const token = jwt.sign({ id: user._id }, config.JWT_USER_PASSWORD, {
+      expiresIn: "1d",
     });
 
     const cookieOptions = {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       httpOnly: true,
-      secure: process.env.Node_Env === "production",
+      secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
     };
 

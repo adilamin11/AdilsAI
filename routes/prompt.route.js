@@ -1,8 +1,9 @@
-import express from 'express'
-import { sendPrompt } from '../controller/prompt.controller.js';
-import userMiddleware from '../middleware/promt.middleware.js';
+import express from "express";
+import  {sendPromt}  from "../controller/prompt.controller.js";
+import userMiddleware from "../middleware/promt.middleware.js";
 
+const router = express.Router();
 
-const router =express.Router()
-router.post("/prompt",userMiddleware, sendPrompt);
+router.post("/promt", userMiddleware, sendPromt);
+
 export default router;

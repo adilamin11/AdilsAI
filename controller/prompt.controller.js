@@ -5,7 +5,7 @@ const openai = new OpenAI({
   baseURL: "https://api.aimlapi.com/v1",
   apiKey: process.env.OPENAI_API_KEY,
 });
-export const sendPrompt = async (req, res) => {
+export const sendPromt = async (req, res) => {
   const { content } = req.body;
   const userId = req.userId;
 

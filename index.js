@@ -1,14 +1,22 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import cookieParser from 'cookie-parser';
-import userRoutes from './routes/user.route.js';
-import promptRoutes from './routes/prompt.route.js';
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import cors from "cors";
+
+import userRoutes from "./routes/user.route.js";
+import promtRoutes from "./routes/prompt.route.js";
+
 dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 4001;
-const MONGO_URI = process.env.Mongo_URI;
+const MONGO_URL = process.env.MONGO_URI;
+
+// middleware
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -18,23 +26,16 @@ app.use(
   })
 );
 
-
-//  Middleware first
-app.use(express.json());
-app.use(cookieParser());
-
-//  Routes after middleware
-app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/AdilsAi", promptRoutes);
-
-mongoose.connect(MONGO_URI)
+// DB Connection Code Goes Here!!!!
+mongoose
+  .connect(MONGO_URL)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((error) => console.error("MongoDB connection error:", error));
+  .catch((error) => console.error("MongoDB Connection Error: ", error));
 
-app.get('/', (req, res) => {
-  res.send("Hello world");
-});
+// routes
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/AdilsAi", promtRoutes);
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });

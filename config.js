@@ -1,11 +1,8 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
-// Add validation
-if (!process.env.JWT_PASSWORD) {
-  throw new Error('JWT_PASSWORD is not defined in environment variables');
-}
+const JWT_USER_PASSWORD = process.env.JWT_PASSWORD;
 
 export default {
-  jwtSecret: process.env.JWT_PASSWORD
+  JWT_USER_PASSWORD,
 };
